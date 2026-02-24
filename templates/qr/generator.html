@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Free QR Code Generator - FattyURL{% endblock %}
+{% block meta_description %}Generate free custom QR codes with custom colors. Download as PNG or SVG. No watermarks, no signup required.{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-10">
+        <h1 class="text-3xl font-bold text-gray-900 mb-3">
+            <i class="fa-solid fa-qrcode text-indigo-600 mr-2"></i>Free QR Code Generator
+        </h1>
+        <p class="text-gray-600">Create custom-colored QR codes. Download as PNG or SVG. No watermarks, no signup required.</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Form -->
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">URL</label>
+                    <input type="url" id="qr-url" placeholder="https://example.com"
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Foreground Color</label>
+                        <input type="color" id="qr-fg" value="#000000" class="w-full h-10 rounded cursor-pointer">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Background Color</label>
+                        <input type="color" id="qr-bg" value="#FFFFFF" class="w-full h-10 rounded cursor-pointer">
+                    </div>
+                </div>
+                <button onclick="previewQR()"
+                        class="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
+                    <i class="fa-solid fa-eye mr-2"></i>Preview QR Code
+                </button>
+                <div class="flex gap-3">
+                    <button onclick="downloadQR('png')"
+                            class="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200">
+                        <i class="fa-solid fa-image mr-1"></i>Download PNG
+                    </button>
+                    <button onclick="downloadQR('svg')"
+                            class="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200">
+                        <i class="fa-solid fa-file-code mr-1"></i>Download SVG
+                    </button>
+                </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="flex items-center justify-center">
+                <div id="qr-preview" class="w-64 h-64 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 flex items-center justify-center">
+                    <div class="text-center text-gray-400">
+                        <i class="fa-solid fa-qrcode text-4xl mb-2"></i>
+                        <p class="text-sm">QR preview will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function getQRUrl(format) {
+    const url = document.getElementById('qr-url').value;
+    const fg = document.getElementById('qr-fg').value;
+    const bg = document.getElementById('qr-bg').value;
+    if (!url) {
+        alert('Please enter a URL');
+        return null;
+    }
+    return `/qr/generate/?url=${encodeURIComponent(url)}&fg=${encodeURIComponent(fg)}&bg=${encodeURIComponent(bg)}&format=${format}`;
+}
+
+function previewQR() {
+    const src = getQRUrl('png');
+    if (!src) return;
+    const preview = document.getElementById('qr-preview');
+    preview.innerHTML = `<img src="${src}" alt="QR Code" class="w-full h-full object-contain rounded-xl">`;
+}
+
+function downloadQR(format) {
+    const src = getQRUrl(format);
+    if (!src) return;
+    window.location.href = src;
+}
+</script>
+{% endblock %}

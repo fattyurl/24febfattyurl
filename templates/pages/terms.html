@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Terms of Service - FattyURL{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Terms of Service</h1>
+    <div class="prose prose-lg text-gray-600 space-y-4">
+        <p><strong>Last updated:</strong> February 2025</p>
+
+        <h2 class="text-2xl font-bold text-gray-900 mt-8">Acceptable Use</h2>
+        <p>FattyURL is a free URL shortening service. You may use it for any lawful purpose. You may not use FattyURL to:</p>
+        <ul class="list-disc pl-6 space-y-1">
+            <li>Distribute malware or phishing links</li>
+            <li>Link to illegal content</li>
+            <li>Harass or harm others</li>
+            <li>Spam or conduct bulk unsolicited messaging</li>
+            <li>Circumvent any security measures</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold text-gray-900 mt-8">Service Availability</h2>
+        <p>We strive for high availability but cannot guarantee 100% uptime. FattyURL is provided "as is" without warranties of any kind.</p>
+
+        <h2 class="text-2xl font-bold text-gray-900 mt-8">Link Permanence</h2>
+        <p>We are committed to keeping your links alive. See our <a href="{% url 'promise_page' %}" class="text-indigo-600 hover:underline">Links Never Die promise</a>. Links that violate our terms may be deactivated.</p>
+
+        <h2 class="text-2xl font-bold text-gray-900 mt-8">Changes</h2>
+        <p>We may update these terms from time to time. Continued use of FattyURL after changes constitutes acceptance of the new terms.</p>
+    </div>
+</div>
+{% endblock %}

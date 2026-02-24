@@ -1,0 +1,44 @@
+/* FattyURL Custom Styles */
+
+/* Smooth transitions for interactive elements */
+a, button {
+    transition: all 0.15s ease-in-out;
+}
+
+/* Copy button success state */
+.copy-success {
+    background-color: #059669 !important;
+}
+
+/* Chart container responsive */
+canvas {
+    max-width: 100%;
+}
+
+/* Table row hover effect */
+tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+/* Custom scrollbar for tables */
+.overflow-x-auto::-webkit-scrollbar {
+    height: 6px;
+}
+.overflow-x-auto::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+}
+.overflow-x-auto::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+/* File input styling */
+input[type="file"]::file-selector-button {
+    cursor: pointer;
+}
+
+/* Focus ring */
+input:focus, select:focus, textarea:focus {
+    outline: none;
+}

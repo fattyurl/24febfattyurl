@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Our Promise: Links Never Die - FattyURL{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-12">
+        <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fa-solid fa-shield-halved text-indigo-600 text-3xl"></i>
+        </div>
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Links Never Die</h1>
+        <p class="text-xl text-gray-600">Our permanent public promise to every FattyURL user.</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-8">
+        <div class="flex items-start gap-4">
+            <i class="fa-solid fa-ban text-red-500 text-xl mt-1"></i>
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900">No Ads. Ever.</h3>
+                <p class="text-gray-600 mt-1">We will never insert interstitial pages, pop-ups, affiliate tags, or any form of advertising into your shortened links. Your visitors go straight to the destination.</p>
+            </div>
+        </div>
+        <div class="flex items-start gap-4">
+            <i class="fa-solid fa-infinity text-indigo-600 text-xl mt-1"></i>
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900">No Link Expiry</h3>
+                <p class="text-gray-600 mt-1">Your links will never expire. Not after 30 days, not after a year, not ever. A link created today will work in 2030 and beyond.</p>
+            </div>
+        </div>
+        <div class="flex items-start gap-4">
+            <i class="fa-solid fa-lock-open text-green-600 text-xl mt-1"></i>
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900">No Paywall</h3>
+                <p class="text-gray-600 mt-1">Every feature you see today will remain free. We will never lock existing features behind a paid tier. Analytics, QR codes, custom slugs — all free, always.</p>
+            </div>
+        </div>
+        <div class="flex items-start gap-4">
+            <i class="fa-solid fa-power-off text-orange-500 text-xl mt-1"></i>
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900">No Deactivation</h3>
+                <p class="text-gray-600 mt-1">We will never deactivate working links. If you created it and it's not violating our terms of service, it stays live.</p>
+            </div>
+        </div>
+        <div class="flex items-start gap-4">
+            <i class="fa-solid fa-database text-purple-600 text-xl mt-1"></i>
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900">Open Redirect Database</h3>
+                <p class="text-gray-600 mt-1">If FattyURL ever shuts down, we will open-source the entire redirect database so your links continue to work. No link left behind.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-12">
+        <a href="{% url 'home' %}" class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-colors">
+            Start Shortening Links
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% if status == 'available' %}
+<span class="text-green-500 text-sm"><i class="fa-solid fa-check-circle"></i></span>
+{% elif status == 'taken' %}
+<span class="text-red-500 text-sm" title="{{ message }}"><i class="fa-solid fa-times-circle"></i></span>
+{% elif status == 'invalid' %}
+<span class="text-red-500 text-sm" title="{{ message }}"><i class="fa-solid fa-exclamation-circle"></i></span>
+{% endif %}

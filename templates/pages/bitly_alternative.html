@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Best Free Bitly Alternative 2025 - FattyURL{% endblock %}
+{% block meta_description %}FattyURL is the best free Bitly alternative. Unlimited links, full analytics, QR codes, custom slugs, and zero ads. No credit card, no paywall.{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">The Best Free Bitly Alternative</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Bitly gutted their free plan and added interstitial ads. FattyURL gives you everything they charge $199/mo for. Free. Forever.
+        </p>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-12">
+        <div class="overflow-x-auto">
+            <table class="min-w-full">
+                <thead>
+                    <tr class="bg-gray-50">
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Feature</th>
+                        <th class="px-6 py-4 text-center text-sm font-semibold text-indigo-600 bg-indigo-50">
+                            FattyURL<br><span class="text-xs font-normal text-indigo-400">FREE</span>
+                        </th>
+                        <th class="px-6 py-4 text-center text-sm font-semibold text-gray-600">
+                            Bitly Free<br><span class="text-xs font-normal text-gray-400">$0 (gutted)</span>
+                        </th>
+                        <th class="px-6 py-4 text-center text-sm font-semibold text-gray-600">
+                            Bitly Premium<br><span class="text-xs font-normal text-gray-400">$199/mo</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    {% with features="Links per month,Interstitial ads,Click analytics,City & device data,QR codes,Custom slugs,Data export,API access,Link editing" %}
+                    {% for feature in features|make_list %}{% endfor %}
+
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-3 text-sm text-gray-700">Links per month</td>
+                        <td class="px-6 py-3 text-center text-sm font-medium text-green-600 bg-indigo-50/50">Unlimited</td>
+                        <td class="px-6 py-3 text-center text-sm text-gray-500">10</td>
+                        <td class="px-6 py-3 text-center text-sm text-gray-500">3,000</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-3 text-sm text-gray-700">Interstitial ads</td>
+                        <td class="px-6 py-3 text-center bg-indigo-50/50"><i class="fa-solid fa-xmark text-green-600"></i> Never</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-check text-red-500"></i> Yes</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-xmark text-green-600"></i> No</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-3 text-sm text-gray-700">Click analytics</td>
+                        <td class="px-6 py-3 text-center bg-indigo-50/50"><i class="fa-solid fa-check text-green-600"></i> Full</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-xmark text-red-500"></i> Removed</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-check text-green-600"></i> Full</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-3 text-sm text-gray-700">City & device data</td>
+                        <td class="px-6 py-3 text-center bg-indigo-50/50"><i class="fa-solid fa-check text-green-600"></i> Yes</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-xmark text-red-500"></i> No</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-check text-green-600"></i> Yes</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-3 text-sm text-gray-700">QR codes</td>
+                        <td class="px-6 py-3 text-center bg-indigo-50/50"><i class="fa-solid fa-check text-green-600"></i> Unlimited</td>
+                        <td class="px-6 py-3 text-center text-sm text-gray-500">2</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-check text-green-600"></i> Yes</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-3 text-sm text-gray-700">Custom slugs</td>
+                        <td class="px-6 py-3 text-center bg-indigo-50/50"><i class="fa-solid fa-check text-green-600"></i> Yes</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-xmark text-red-500"></i> No</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-check text-green-600"></i> Yes</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-3 text-sm text-gray-700">Data export</td>
+                        <td class="px-6 py-3 text-center bg-indigo-50/50"><i class="fa-solid fa-check text-green-600"></i> CSV</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-xmark text-red-500"></i> No</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-check text-green-600"></i> Yes</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-3 text-sm text-gray-700">API access</td>
+                        <td class="px-6 py-3 text-center bg-indigo-50/50"><i class="fa-solid fa-check text-green-600"></i> Yes</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-xmark text-red-500"></i> Limited</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-check text-green-600"></i> Yes</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-3 text-sm text-gray-700">Link editing</td>
+                        <td class="px-6 py-3 text-center bg-indigo-50/50"><i class="fa-solid fa-check text-green-600"></i> Yes</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-xmark text-red-500"></i> No</td>
+                        <td class="px-6 py-3 text-center"><i class="fa-solid fa-check text-green-600"></i> Yes</td>
+                    </tr>
+                    {% endwith %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center">
+        <a href="{% url 'home' %}" class="inline-block bg-indigo-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-indigo-700 transition-colors shadow-lg">
+            <i class="fa-solid fa-bolt mr-2"></i>Start Shortening Links — Free Forever
+        </a>
+        <p class="text-gray-500 text-sm mt-4">No credit card. No trial. No tricks.</p>
+    </div>
+</div>
+{% endblock %}

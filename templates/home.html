@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}FattyURL - Free URL Shortener with Analytics{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
+        <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">
+            Shorten Links. Track Clicks.<br>
+            <span class="text-indigo-200">100% Free. Zero Ads.</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-indigo-200 mb-10 max-w-2xl mx-auto">
+            Full analytics, QR codes, custom slugs, and link editing. No paywalls, no interstitials, no tricks. Ever.
+        </p>
+
+        <!-- Shortener Form -->
+        <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
+            <form hx-post="{% url 'shorten_url' %}" hx-target="#shorten-result" hx-swap="innerHTML" class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <input type="url" name="url" placeholder="Paste your long URL here..."
+                           class="w-full px-4 py-4 rounded-xl border-2 border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-lg text-gray-900"
+                           required autofocus>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="flex-1 relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">fattyurl.com/</span>
+                        <input type="text" name="custom_slug" placeholder="custom-slug"
+                               class="w-full pl-28 pr-4 py-3 rounded-xl border-2 border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900"
+                               hx-get="{% url 'check_slug' %}" hx-trigger="keyup changed delay:400ms"
+                               hx-target="#slug-status" hx-swap="innerHTML"
+                               hx-vals='js:{"slug": event.target.value}'>
+                        <div id="slug-status" class="absolute right-3 top-1/2 -translate-y-1/2"></div>
+                    </div>
+                    <button type="submit"
+                            class="bg-indigo-600 text-white px-8 py-3 rounded-xl font-semibold text-lg hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-xl whitespace-nowrap">
+                        <i class="fa-solid fa-bolt mr-2"></i>Shorten
+                    </button>
+                </div>
+            </form>
+            <div id="shorten-result" class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Feature Cards -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Everything You Need. Nothing You Don't.</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+                <i class="fa-solid fa-infinity text-indigo-600 text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Unlimited Links</h3>
+            <p class="text-gray-600">No limits. No quotas. No "upgrade to create more." Shorten as many links as you want, free forever.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                <i class="fa-solid fa-chart-bar text-green-600 text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Full Analytics</h3>
+            <p class="text-gray-600">Clicks over time, countries, cities, devices, browsers, OS, referrers. All free. No premium tier needed.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                <i class="fa-solid fa-qrcode text-purple-600 text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">QR Codes</h3>
+            <p class="text-gray-600">Generate custom-colored QR codes. Download as PNG or SVG. No watermarks, no branding.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                <i class="fa-solid fa-pen text-orange-600 text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Custom Slugs</h3>
+            <p class="text-gray-600">Choose your own vanity URL: fattyurl.com/your-brand. Real-time availability check.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                <i class="fa-solid fa-ban text-red-600 text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Zero Ads</h3>
+            <p class="text-gray-600">No interstitial pages. No pop-ups. No tracking pixels. Your visitors go straight to the destination.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                <i class="fa-solid fa-shield-halved text-blue-600 text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Links Never Die</h3>
+            <p class="text-gray-600">No expiry. No deactivation. No paywall. Your links work forever. <a href="{% url 'promise_page' %}" class="text-indigo-600 hover:underline">Read our promise</a>.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Social Proof -->
+<div class="bg-indigo-50 py-12">
+    <div class="max-w-4xl mx-auto text-center px-4">
+        <p class="text-3xl font-bold text-indigo-700">
+            <span id="total-links-counter">{{ site_stats.total_links|default:"0" }}</span> links shortened
+        </p>
+        <p class="text-gray-600 mt-2">and counting. Join thousands of happy users.</p>
+    </div>
+</div>
+{% endblock %}

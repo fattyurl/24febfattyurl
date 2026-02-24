@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}About - FattyURL{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">About FattyURL</h1>
+    <div class="prose prose-lg text-gray-600 space-y-4">
+        <p>FattyURL was born out of frustration. When Bitly gutted their free plan, added interstitial ads to shortened links, and started charging $199/month for basic analytics, we knew there had to be a better way.</p>
+        <p>We built FattyURL to be the URL shortener that Bitly used to be — simple, powerful, and actually free. Not "free with an asterisk," not "free trial," not "free but we'll show your visitors ads." Actually, genuinely, permanently free.</p>
+        <h2 class="text-2xl font-bold text-gray-900 mt-8">What We Believe</h2>
+        <ul class="list-disc pl-6 space-y-2">
+            <li><strong>Short links should be free.</strong> URL shortening is a utility, not a luxury product.</li>
+            <li><strong>Analytics should be included.</strong> Knowing who clicks your links shouldn't cost $199/month.</li>
+            <li><strong>Links should never die.</strong> Your short links will work forever. Read our <a href="{% url 'promise_page' %}" class="text-indigo-600 hover:underline">promise</a>.</li>
+            <li><strong>Privacy matters.</strong> We never store raw IP addresses and never sell your data.</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

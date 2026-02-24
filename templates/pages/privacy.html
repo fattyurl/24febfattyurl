@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy - FattyURL{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Privacy Policy</h1>
+    <div class="prose prose-lg text-gray-600 space-y-4">
+        <p><strong>Last updated:</strong> February 2025</p>
+
+        <h2 class="text-2xl font-bold text-gray-900 mt-8">What We Collect</h2>
+        <p>When someone clicks a shortened link, we collect:</p>
+        <ul class="list-disc pl-6 space-y-1">
+            <li>Browser type and version</li>
+            <li>Operating system</li>
+            <li>Device type (mobile, desktop, tablet)</li>
+            <li>Referring URL</li>
+            <li>Country and city (from CDN headers, not IP geolocation databases)</li>
+            <li>A SHA-256 hash of the IP address (we never store raw IP addresses)</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold text-gray-900 mt-8">What We Don't Do</h2>
+        <ul class="list-disc pl-6 space-y-1">
+            <li>We never store raw IP addresses</li>
+            <li>We never use tracking pixels</li>
+            <li>We never sell your data to anyone</li>
+            <li>We never show ads or interstitial pages</li>
+            <li>We never share individual click data with third parties</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold text-gray-900 mt-8">Account Data</h2>
+        <p>If you create an account, we store your email address for authentication purposes. You can delete your account and all associated data at any time by contacting us.</p>
+
+        <h2 class="text-2xl font-bold text-gray-900 mt-8">Contact</h2>
+        <p>Questions about our privacy practices? <a href="{% url 'contact_page' %}" class="text-indigo-600 hover:underline">Contact us</a>.</p>
+    </div>
+</div>
+{% endblock %}

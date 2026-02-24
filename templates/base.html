@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FattyURL - Free URL Shortener{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}100% free URL shortener with analytics, QR codes, custom slugs, and zero ads. Forever.{% endblock %}">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="h-full bg-gray-50 flex flex-col" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="{% url 'home' %}" class="flex items-center space-x-2">
+                        <i class="fa-solid fa-link text-indigo-600 text-2xl"></i>
+                        <span class="text-xl font-bold text-gray-900">Fatty<span class="text-indigo-600">URL</span></span>
+                    </a>
+                    <div class="hidden md:flex ml-10 space-x-4">
+                        <a href="{% url 'qr_generator' %}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium">QR Generator</a>
+                        <a href="{% url 'bitly_alternative' %}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Bitly Alternative</a>
+                        <a href="{% url 'promise_page' %}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Our Promise</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
+                            <i class="fa-solid fa-chart-line mr-1"></i> Dashboard
+                        </a>
+                        <a href="{% url 'account_logout' %}" class="text-gray-500 hover:text-gray-700 px-3 py-2 text-sm font-medium">Logout</a>
+                    {% else %}
+                        <a href="{% url 'account_login' %}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Log In</a>
+                        <a href="{% url 'account_signup' %}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700">Sign Up Free</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        {% for message in messages %}
+        <div class="rounded-lg p-4 mb-2 {% if message.tags == 'error' %}bg-red-50 text-red-700{% elif message.tags == 'success' %}bg-green-50 text-green-700{% else %}bg-blue-50 text-blue-700{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 mb-3">Product</h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="{% url 'home' %}" class="hover:text-indigo-600">URL Shortener</a></li>
+                        <li><a href="{% url 'qr_generator' %}" class="hover:text-indigo-600">QR Generator</a></li>
+                        <li><a href="{% url 'bitly_alternative' %}" class="hover:text-indigo-600">Bitly Alternative</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 mb-3">Trust</h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="{% url 'promise_page' %}" class="hover:text-indigo-600">Our Promise</a></li>
+                        <li><a href="{% url 'privacy_page' %}" class="hover:text-indigo-600">Privacy Policy</a></li>
+                        <li><a href="{% url 'terms_page' %}" class="hover:text-indigo-600">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 mb-3">Company</h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="{% url 'about_page' %}" class="hover:text-indigo-600">About</a></li>
+                        <li><a href="{% url 'contact_page' %}" class="hover:text-indigo-600">Contact</a></li>
+                        <li><a href="{% url 'migrate_page' %}" class="hover:text-indigo-600">Migrate from Bitly</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 mb-3">Stats</h3>
+                    <p class="text-sm text-gray-600">
+                        <span class="font-bold text-indigo-600">{{ site_stats.total_links|default:"0" }}</span> links shortened
+                    </p>
+                    <p class="text-xs text-gray-400 mt-2">100% free. Zero ads. Forever.</p>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
+                &copy; 2025 FattyURL. Free URL shortener with full analytics.
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/app.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
