@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 from core import views
 
 handler404 = 'core.views.custom_404'
@@ -48,3 +49,6 @@ urlpatterns = [
     # MUST BE LAST — catch-all redirect
     path('<str:code>/', views.redirect_short_url, name='redirect_short_url'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [path('__debug__/', include('debug_toolbar.urls'))]
