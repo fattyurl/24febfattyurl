@@ -3,6 +3,20 @@ import string
 
 from django.conf import settings
 from django.db import models
+from django.contrib.sites.models import Site
+
+
+def get_site_base_url(request=None):
+    if request is not None:
+        site = getattr(request, 'site', None)
+        if site is not None and getattr(site, 'domain', None):
+            return f"{request.scheme}://{site.domain}"
+        return request.build_absolute_uri('/').rstrip('/')
+
+    site = Site.objects.get_current()
+    if site is not None and getattr(site, 'domain', None):
+        return f"https://{site.domain}"
+    return ''
 
 
 def generate_short_code():
@@ -36,9 +50,12 @@ class Link(models.Model):
     def __str__(self):
         return f"{self.get_short_url()} -> {self.original_url[:60]}"
 
-    def get_short_url(self):
+    def get_short_url(self, request=None):
         slug = self.custom_slug or self.short_code
-        return f"{settings.SITE_URL}/{slug}"
+        base_url = get_site_base_url(request)
+        if base_url:
+            return f"{base_url.rstrip('/')}/{slug}"
+        return f"/{slug}"
 
     def get_display_code(self):
         return self.custom_slug or self.short_code

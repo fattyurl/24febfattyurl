@@ -44,7 +44,10 @@ def shorten(request):
         link.custom_slug = custom_slug
     link.save()
 
-    return Response(LinkSerializer(link).data, status=status.HTTP_201_CREATED)
+    return Response(
+        LinkSerializer(link, context={'request': request}).data,
+        status=status.HTTP_201_CREATED
+    )
 
 
 @api_view(['GET'])
@@ -65,7 +68,7 @@ def list_links(request):
     from rest_framework.pagination import PageNumberPagination
     paginator = PageNumberPagination()
     page = paginator.paginate_queryset(links, request)
-    serializer = LinkSerializer(page, many=True)
+    serializer = LinkSerializer(page, many=True, context={'request': request})
     return paginator.get_paginated_response(serializer.data)
 
 
@@ -79,7 +82,7 @@ def link_detail(request, pk):
         return Response({'error': 'Link not found.'}, status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        return Response(LinkSerializer(link).data)
+        return Response(LinkSerializer(link, context={'request': request}).data)
 
     elif request.method == 'PATCH':
         serializer = LinkUpdateSerializer(data=request.data)
@@ -113,7 +116,7 @@ def link_detail(request, pk):
                 link.custom_slug = None
 
         link.save()
-        return Response(LinkSerializer(link).data)
+        return Response(LinkSerializer(link, context={'request': request}).data)
 
     elif request.method == 'DELETE':
         link.delete()
@@ -178,7 +181,7 @@ def bulk_create(request):
             link.custom_slug = custom_slug
 
         link.save()
-        results.append(LinkSerializer(link).data)
+        results.append(LinkSerializer(link, context={'request': request}).data)
 
     return Response({'results': results}, status=status.HTTP_201_CREATED)
 
@@ -196,7 +199,7 @@ def export_csv(request):
     writer.writerow(['Short URL', 'Original URL', 'Title', 'Clicks', 'Active', 'Created'])
     for link in links:
         writer.writerow([
-            link.get_short_url(),
+            link.get_short_url(request=request),
             link.original_url,
             link.title,
             link.click_count,

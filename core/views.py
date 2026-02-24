@@ -466,7 +466,7 @@ def export_links_csv(request):
     writer.writerow(['Short URL', 'Original URL', 'Title', 'Clicks', 'Active', 'Created'])
     for link in links:
         writer.writerow([
-            link.get_short_url(),
+            link.get_short_url(request=request),
             link.original_url,
             link.title,
             link.click_count,

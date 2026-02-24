@@ -14,7 +14,7 @@ class LinkSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'short_code', 'click_count', 'short_url', 'created_at', 'updated_at']
 
     def get_short_url(self, obj):
-        return obj.get_short_url()
+        return obj.get_short_url(request=self.context.get('request'))
 
 
 class LinkCreateSerializer(serializers.Serializer):

@@ -1,7 +1,4 @@
 from django.core.cache import cache
-from django.conf import settings
-
-
 def site_stats(request):
     stats = cache.get('site_stats')
     if stats is None:
@@ -15,5 +12,9 @@ def site_stats(request):
         cache.set('site_stats', stats, 300)  # Cache 5 minutes
     return {
         'site_stats': stats,
-        'site_url': settings.SITE_URL,
+        'site_url': (
+            f"{request.scheme}://{request.site.domain}"
+            if getattr(request, 'site', None) and getattr(request.site, 'domain', None)
+            else request.build_absolute_uri('/').rstrip('/')
+        ),
     }
