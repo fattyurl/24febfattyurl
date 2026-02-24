@@ -4,6 +4,7 @@ import environ
 env = environ.Env(
     DEBUG=(bool, True),
     ALLOWED_HOSTS=(list, ['localhost', '127.0.0.1']),
+    DATABASE_URL=(str, 'sqlite:///db.sqlite3'),
     ADMINS=(list, []),
     CSRF_TRUSTED_ORIGINS=(list, []),
     EMAIL_HOST=(str, ''),
@@ -95,7 +96,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'fattyurl.wsgi.application'
 
 DATABASES = {
-    'default': env.db()
+    'default': env.db(default='sqlite:///db.sqlite3')
 }
 
 AUTH_PASSWORD_VALIDATORS = [
