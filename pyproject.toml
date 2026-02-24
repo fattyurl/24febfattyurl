@@ -16,4 +16,5 @@ dependencies = [
     "qrcode[pil]>=8.0",
     "user-agents>=2.2",
     "whitenoise>=6.5",
+    "requests>=2.32.5",
 ]

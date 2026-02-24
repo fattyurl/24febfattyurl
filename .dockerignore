@@ -1,0 +1,42 @@
+# Python cache and build artifacts
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.egg-info/
+venv/
+.venv/
+env/
+.venv*/
+
+# Django artifacts
+*.sqlite3
+db.sqlite3
+/staticfiles/
+/media/
+
+# Project files
+.git/
+.gitignore
+.env
+.env.local
+.env.*.local
+.pytest_cache/
+.mypy_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.pytype/
+.ipynb_checkpoints/
+.vscode/
+.idea/
+
+# Node/Frontend junk (if any)
+node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# OS/editor files
+.DS_Store
+Thumbs.db
