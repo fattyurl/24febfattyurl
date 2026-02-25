@@ -5,14 +5,15 @@ from urllib.parse import urlparse
 from user_agents import parse as parse_ua
 
 RESERVED_SLUGS = {
-    'api', 'dashboard', 'login', 'signup', 'logout', 'admin', 'settings',
-    'about', 'pricing', 'blog', 'docs', 'help', 'support', 'migrate',
-    'terms', 'privacy', 'promise', 'qr', 'bitly-alternative',
-    'tinyurl-alternative', 'check', 'account', 'accounts', 'static', 'media',
-    'shorten', 'check-slug', 'contact',
+    'api', 'admin', 'accounts', 'account', 'dashboard', 'shorten', 'check-slug',
+    'migrate', 'contact', 'qr', 'about', 'terms', 'privacy', 'promise',
+    'bitly-alternative', 'tinyurl-alternative', 'pricing', 'help', 'docs',
+    'support', 'blog', 'login', 'signup', 'logout', 'settings', 'static', 'media',
+    'robots', 'favicon', 'favicon.ico', 'sitemap', 'home',
+    'api-stats', 'api-health', 'api-v1',
 }
 
-SLUG_PATTERN = re.compile(r'^[a-zA-Z0-9][a-zA-Z0-9_-]{1,98}[a-zA-Z0-9]$')
+SLUG_PATTERN = re.compile(r'^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$')
 
 
 def validate_url(url):
@@ -37,14 +38,17 @@ def validate_slug(slug):
     """Validate custom slug format and availability."""
     if not slug:
         return True, None
-    if slug.lower() in RESERVED_SLUGS:
+    slug = slug.strip()
+    slug_lower = slug.lower()
+
+    if slug_lower in RESERVED_SLUGS:
         return False, "This slug is reserved."
-    if len(slug) < 3:
-        return False, "Slug must be at least 3 characters."
+    if len(slug) < 6:
+        return False, "Slug must be at least 6 characters."
     if len(slug) > 100:
         return False, "Slug must be 100 characters or fewer."
     if not SLUG_PATTERN.match(slug):
-        return False, "Slug can only contain letters, numbers, hyphens, and underscores."
+        return False, "Slug can only contain letters, numbers, and hyphens."
     return True, None
 
 
