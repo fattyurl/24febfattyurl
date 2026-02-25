@@ -1,13 +1,22 @@
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from django.conf import settings
 from core import views
+from core.sitemaps import StaticViewSitemap
 
 handler404 = 'core.views.custom_404'
 
 urlpatterns = [
     # Admin
     path('admin/', admin.site.urls),
+    path('robots.txt', views.robots_txt, name='robots_txt'),
+    path(
+        'sitemap.xml',
+        sitemap,
+        {'sitemaps': {'static': StaticViewSitemap}},
+        name='sitemap',
+    ),
 
     # Auth (django-allauth)
     path('accounts/', include('allauth.urls')),

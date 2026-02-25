@@ -4,7 +4,6 @@ import json
 import threading
 from datetime import timedelta
 
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.core.paginator import Paginator
@@ -14,6 +13,8 @@ from django.db.models.functions import TruncDate
 from django.http import HttpResponse, Http404, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
 from django.views.decorators.http import require_POST, require_GET
 
 from .forms import ShortenerForm, LinkEditForm
@@ -331,6 +332,28 @@ def generate_qr(request):
         response['Content-Disposition'] = 'attachment; filename="qr-code.png"'
         img.save(response)
         return response
+
+
+def robots_txt(request):
+    site = getattr(request, 'site', None) or get_current_site(request)
+    sitemap_url = f"https://{site.domain.rstrip('/')}{reverse('sitemap')}"
+
+    return HttpResponse(
+        "\n".join(
+            [
+                "User-agent: *",
+                "Disallow: /admin/",
+                "Disallow: /accounts/",
+                "Disallow: /api/",
+                "Disallow: /dashboard/",
+                "Disallow: /__debug__/",
+                "Allow: /",
+                "",
+                f"Sitemap: {sitemap_url}",
+            ]
+        ),
+        content_type="text/plain",
+    )
 
 
 # ---------------------
