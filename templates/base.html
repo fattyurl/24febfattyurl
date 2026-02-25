@@ -31,6 +31,16 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}" />
 
     {% block extra_head %}{% endblock %}
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-65G1F8EDDE"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-65G1F8EDDE');
+    </script>
 </head>
 <body class="h-full bg-zinc-950 text-zinc-50 flex flex-col font-body" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
