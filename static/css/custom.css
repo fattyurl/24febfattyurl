@@ -1,49 +1,135 @@
-/* FattyURL Custom Styles */
+/* ============================================
+   FattyURL — Custom Styles
+   Dark theme with lime accent
+   ============================================ */
 
-/* Smooth transitions for interactive elements */
-a, button {
-    transition: all 0.15s ease-in-out;
+/* ---- Base ---- */
+::selection {
+    background-color: rgba(163, 230, 53, 0.3);
+    color: white;
 }
 
-/* Copy button success state */
+a, button {
+    transition: all 0.2s ease-in-out;
+}
+
+/* ---- Animations ---- */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glow-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -25px) scale(1.05); }
+    66% { transform: translate(-20px, 15px) scale(0.97); }
+}
+
+@keyframes drift-reverse {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-25px, 20px) scale(0.95); }
+    66% { transform: translate(15px, -30px) scale(1.03); }
+}
+
+@keyframes drift-slow {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-15px, -20px) scale(1.08); }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out both;
+}
+
+.animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.animate-drift {
+    animation: drift 18s ease-in-out infinite;
+}
+
+.animate-drift-reverse {
+    animation: drift-reverse 22s ease-in-out infinite;
+}
+
+.animate-drift-slow {
+    animation: drift-slow 25s ease-in-out infinite;
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+
+/* ---- Feature Cards ---- */
+.feature-card {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* ---- Grain Overlay ---- */
+.grain-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+}
+
+/* ---- Copy Button Success ---- */
 .copy-success {
     background-color: #059669 !important;
+    color: white !important;
 }
 
-/* Chart container responsive */
+/* ---- Charts ---- */
 canvas {
     max-width: 100%;
 }
 
-/* Table row hover effect */
+/* ---- Tables ---- */
 tbody tr:hover {
-    background-color: #f9fafb;
+    background-color: rgba(255, 255, 255, 0.02);
 }
 
-/* Custom scrollbar for tables */
+/* ---- Custom Scrollbar ---- */
 .overflow-x-auto::-webkit-scrollbar {
     height: 6px;
 }
 .overflow-x-auto::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: #18181b;
     border-radius: 3px;
 }
 .overflow-x-auto::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: #3f3f46;
     border-radius: 3px;
 }
 
-/* File input styling */
-input[type="file"]::file-selector-button {
-    cursor: pointer;
-}
-
-/* Focus ring */
+/* ---- Focus Ring ---- */
 input:focus, select:focus, textarea:focus {
     outline: none;
 }
 
-/* Allauth / account pages – match site theme */
+/* ---- File Input ---- */
+input[type="file"]::file-selector-button {
+    cursor: pointer;
+}
+
+/* ---- Allauth / Account Pages ---- */
 .rounded-2xl form p {
     margin-bottom: 1rem;
 }
@@ -51,7 +137,7 @@ input:focus, select:focus, textarea:focus {
     display: block;
     font-size: 0.875rem;
     font-weight: 500;
-    color: #374151;
+    color: #a1a1aa;
     margin-bottom: 0.25rem;
 }
 .rounded-2xl form input[type="text"],
@@ -62,47 +148,49 @@ input:focus, select:focus, textarea:focus {
 .rounded-2xl form textarea {
     width: 100%;
     padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    border: 1px solid #d1d5db;
+    border-radius: 0.75rem;
+    border: 1px solid #3f3f46;
+    background: rgba(39, 39, 42, 0.5);
+    color: #fafafa;
     font-size: 1rem;
 }
 .rounded-2xl form input:focus,
 .rounded-2xl form textarea:focus {
     outline: none;
-    border-color: #6366f1;
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+    border-color: #a3e635;
+    box-shadow: 0 0 0 2px rgba(163, 230, 53, 0.15);
 }
 .rounded-2xl form .errorlist {
     list-style: none;
     padding: 0;
     margin: 0 0 0.5rem 0;
-    color: #b91c1c;
+    color: #f87171;
     font-size: 0.875rem;
 }
 .rounded-2xl form button[type="submit"],
 .rounded-2xl form input[type="submit"] {
     width: 100%;
-    background: #4f46e5;
-    color: white;
+    background: #a3e635;
+    color: #09090b;
     padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
+    border-radius: 0.75rem;
+    font-weight: 700;
     border: none;
     cursor: pointer;
     font-size: 1rem;
-    margin-top: 0.5rem;
 }
 .rounded-2xl form button[type="submit"]:hover,
 .rounded-2xl form input[type="submit"]:hover {
-    background: #4338ca;
+    background: #bef264;
 }
 .rounded-2xl h1 {
     font-size: 1.875rem;
     font-weight: 700;
-    color: #111827;
+    color: #fafafa;
     margin-bottom: 0.5rem;
+    font-family: "Bricolage Grotesque", sans-serif;
 }
 .rounded-2xl p {
-    color: #4b5563;
+    color: #a1a1aa;
     margin-bottom: 1rem;
 }

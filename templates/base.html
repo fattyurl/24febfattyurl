@@ -7,6 +7,11 @@
     <title>{% block title %}FattyURL - Free URL Shortener{% endblock %}</title>
     <meta name="description" content="{% block meta_description %}100% free URL shortener with analytics, QR codes, custom slugs, and zero ads. Forever.{% endblock %}">
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
@@ -22,50 +27,50 @@
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     {% block extra_head %}{% endblock %}
 </head>
-<body class="h-full bg-gray-50 flex flex-col" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+<body class="h-full bg-zinc-950 text-zinc-50 flex flex-col font-body" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
     <!-- Navigation -->
-    <nav class="bg-white shadow-sm border-b border-gray-200">
+    <nav class="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <a href="{% url 'home' %}" class="flex items-center space-x-2">
-                        <i class="fa-solid fa-link text-indigo-600 text-2xl"></i>
-                        <span class="text-xl font-bold text-gray-900">Fatty<span class="text-indigo-600">URL</span></span>
+                        <i class="fa-solid fa-link text-lime-400 text-xl"></i>
+                        <span class="text-xl font-bold text-white font-display">Fatty<span class="text-lime-400">URL</span></span>
                     </a>
-                    <div class="hidden md:flex ml-10 space-x-4">
-                        <a href="{% url 'qr_generator' %}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium">QR Generator</a>
-                        <a href="{% url 'bitly_alternative' %}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Bitly Alternative</a>
-                        <a href="{% url 'promise_page' %}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Our Promise</a>
+                    <div class="hidden md:flex ml-10 space-x-1">
+                        <a href="{% url 'qr_generator' %}" class="text-zinc-400 hover:text-lime-400 px-3 py-2 text-sm font-medium transition-colors duration-200">QR Generator</a>
+                        <a href="{% url 'bitly_alternative' %}" class="text-zinc-400 hover:text-lime-400 px-3 py-2 text-sm font-medium transition-colors duration-200">Bitly Alternative</a>
+                        <a href="{% url 'promise_page' %}" class="text-zinc-400 hover:text-lime-400 px-3 py-2 text-sm font-medium transition-colors duration-200">Our Promise</a>
                     </div>
                 </div>
                 <div class="flex items-center space-x-3">
                     {% if user.is_authenticated %}
-                        <a href="{% url 'dashboard' %}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
+                        <a href="{% url 'dashboard' %}" class="text-zinc-400 hover:text-lime-400 px-3 py-2 text-sm font-medium transition-colors duration-200">
                             <i class="fa-solid fa-chart-line mr-1"></i> Dashboard
                         </a>
-                        <a href="{% url 'account_logout' %}" class="text-gray-500 hover:text-gray-700 px-3 py-2 text-sm font-medium">Logout</a>
+                        <a href="{% url 'account_logout' %}" class="text-zinc-500 hover:text-zinc-300 px-3 py-2 text-sm font-medium transition-colors duration-200">Logout</a>
                     {% else %}
-                        <a href="{% url 'account_login' %}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Log In</a>
-                        <a href="{% url 'account_signup' %}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700">Sign Up Free</a>
+                        <a href="{% url 'account_login' %}" class="text-zinc-400 hover:text-lime-400 px-3 py-2 text-sm font-medium transition-colors duration-200">Log In</a>
+                        <a href="{% url 'account_signup' %}" class="bg-lime-400 text-zinc-900 px-4 py-2 rounded-lg text-sm font-bold hover:bg-lime-300 transition-all duration-200 shadow-sm shadow-lime-500/20">Sign Up Free</a>
                     {% endif %}
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Toast Messages (fixed bottom) -->
+    <!-- Toast Messages -->
     {% if messages %}
     <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 max-w-sm w-full" style="pointer-events: none;">
         {% for message in messages %}
-        <div class="toast-item relative flex items-start gap-3 rounded-lg shadow-lg border px-4 py-3 text-sm {% if message.tags == 'error' %}bg-red-50 border-red-200 text-red-700{% elif message.tags == 'success' %}bg-green-50 border-green-200 text-green-700{% else %}bg-blue-50 border-blue-200 text-blue-700{% endif %}"
+        <div class="toast-item relative flex items-start gap-3 rounded-xl shadow-2xl border px-4 py-3 text-sm backdrop-blur-xl {% if message.tags == 'error' %}bg-red-500/10 border-red-500/20 text-red-400{% elif message.tags == 'success' %}bg-emerald-500/10 border-emerald-500/20 text-emerald-400{% else %}bg-sky-500/10 border-sky-500/20 text-sky-400{% endif %}"
              style="pointer-events: auto; animation: toast-in 0.3s ease-out;">
-            <i class="fa-solid {% if message.tags == 'error' %}fa-circle-xmark text-red-500{% elif message.tags == 'success' %}fa-circle-check text-green-500{% else %}fa-circle-info text-blue-500{% endif %} mt-0.5"></i>
+            <i class="fa-solid {% if message.tags == 'error' %}fa-circle-xmark text-red-400{% elif message.tags == 'success' %}fa-circle-check text-emerald-400{% else %}fa-circle-info text-sky-400{% endif %} mt-0.5"></i>
             <span class="flex-1">{{ message }}</span>
             <button onclick="this.closest('.toast-item').remove()" class="ml-2 opacity-60 hover:opacity-100 cursor-pointer" aria-label="Dismiss">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            <div class="toast-timer absolute bottom-0 left-0 h-0.5 rounded-b-lg {% if message.tags == 'error' %}bg-red-400{% elif message.tags == 'success' %}bg-green-400{% else %}bg-blue-400{% endif %}"></div>
+            <div class="toast-timer absolute bottom-0 left-0 h-0.5 rounded-b-xl {% if message.tags == 'error' %}bg-red-500{% elif message.tags == 'success' %}bg-emerald-500{% else %}bg-sky-500{% endif %}"></div>
         </div>
         {% endfor %}
     </div>
@@ -77,42 +82,42 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <footer class="border-t border-zinc-800/50 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-900 mb-3">Product</h3>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li><a href="{% url 'home' %}" class="hover:text-indigo-600">URL Shortener</a></li>
-                        <li><a href="{% url 'qr_generator' %}" class="hover:text-indigo-600">QR Generator</a></li>
-                        <li><a href="{% url 'bitly_alternative' %}" class="hover:text-indigo-600">Bitly Alternative</a></li>
+                    <h3 class="text-sm font-semibold text-zinc-200 mb-4 font-display">Product</h3>
+                    <ul class="space-y-3 text-sm text-zinc-500">
+                        <li><a href="{% url 'home' %}" class="hover:text-lime-400 transition-colors duration-200">URL Shortener</a></li>
+                        <li><a href="{% url 'qr_generator' %}" class="hover:text-lime-400 transition-colors duration-200">QR Generator</a></li>
+                        <li><a href="{% url 'bitly_alternative' %}" class="hover:text-lime-400 transition-colors duration-200">Bitly Alternative</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-900 mb-3">Trust</h3>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li><a href="{% url 'promise_page' %}" class="hover:text-indigo-600">Our Promise</a></li>
-                        <li><a href="{% url 'privacy_page' %}" class="hover:text-indigo-600">Privacy Policy</a></li>
-                        <li><a href="{% url 'terms_page' %}" class="hover:text-indigo-600">Terms of Service</a></li>
+                    <h3 class="text-sm font-semibold text-zinc-200 mb-4 font-display">Trust</h3>
+                    <ul class="space-y-3 text-sm text-zinc-500">
+                        <li><a href="{% url 'promise_page' %}" class="hover:text-lime-400 transition-colors duration-200">Our Promise</a></li>
+                        <li><a href="{% url 'privacy_page' %}" class="hover:text-lime-400 transition-colors duration-200">Privacy Policy</a></li>
+                        <li><a href="{% url 'terms_page' %}" class="hover:text-lime-400 transition-colors duration-200">Terms of Service</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-900 mb-3">Company</h3>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li><a href="{% url 'about_page' %}" class="hover:text-indigo-600">About</a></li>
-                        <li><a href="{% url 'contact_page' %}" class="hover:text-indigo-600">Contact</a></li>
-                        <li><a href="{% url 'migrate_page' %}" class="hover:text-indigo-600">Migrate from Bitly</a></li>
+                    <h3 class="text-sm font-semibold text-zinc-200 mb-4 font-display">Company</h3>
+                    <ul class="space-y-3 text-sm text-zinc-500">
+                        <li><a href="{% url 'about_page' %}" class="hover:text-lime-400 transition-colors duration-200">About</a></li>
+                        <li><a href="{% url 'contact_page' %}" class="hover:text-lime-400 transition-colors duration-200">Contact</a></li>
+                        <li><a href="{% url 'migrate_page' %}" class="hover:text-lime-400 transition-colors duration-200">Migrate from Bitly</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-900 mb-3">Stats</h3>
-                    <p class="text-sm text-gray-600">
-                        <span class="font-bold text-indigo-600">{{ site_stats.total_links|default:"0" }}</span> links shortened
+                    <h3 class="text-sm font-semibold text-zinc-200 mb-4 font-display">Stats</h3>
+                    <p class="text-sm text-zinc-500">
+                        <span class="font-bold text-lime-400">{{ site_stats.total_links|default:"0" }}</span> links shortened
                     </p>
-                    <p class="text-xs text-gray-400 mt-2">100% free. Zero ads. Forever.</p>
+                    <p class="text-xs text-zinc-600 mt-3">100% free. Zero ads. Forever.</p>
                 </div>
             </div>
-            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
+            <div class="mt-12 pt-8 border-t border-zinc-800/50 text-center text-sm text-zinc-600">
                 &copy; 2025 FattyURL. Free URL shortener with full analytics.
             </div>
         </div>
