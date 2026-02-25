@@ -1,6 +1,107 @@
 {% extends "base.html" %}
 
-{% block title %}FattyURL — Free URL Shortener with Full Analytics{% endblock %}
+{% block title %}FattyURL - Free URL Shortener | No Signup, No Login Required{% endblock %}
+
+{% block extra_head %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVM25GV6TC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-MVM25GV6TC');
+    </script>
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="canonical" href="https://fattyurl.com/" />
+
+    <meta property="og:title" content="FattyURL - Free URL Shortener | No Signup Required" />
+    <meta property="og:description" content="Shorten URLs instantly for free. No login. No limits." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://fattyurl.com/" />
+    <meta property="og:image" content="https://fattyurl.com/og-image.png" />
+    <meta property="og:site_name" content="FattyURL" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FattyURL - Free URL Shortener" />
+    <meta name="twitter:description" content="Shorten any URL for free. No signup needed." />
+    <meta name="twitter:image" content="https://fattyurl.com/og-image.png" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "FattyURL",
+      "url": "https://fattyurl.com",
+      "description": "Free URL shortener with no signup or login required. Shorten any link instantly.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is FattyURL completely free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, FattyURL is 100% free with no hidden charges, no premium tier, and no usage limits." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to sign up or create an account?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Just paste your long URL and click shorten. No signup, no login, no email required." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a limit on how many URLs I can shorten?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. You can shorten as many URLs as you want, as often as you want." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do shortened links expire?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Your shortened links stay active permanently." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is FattyURL safe to use?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. FattyURL runs over HTTPS and all shortened links are safe to share." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why should I use FattyURL instead of other URL shorteners?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Most URL shorteners require you to create an account, limit free usage, or charge for features. FattyURL is completely free with no signup, no limits, and no paywalls — ever." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a URL shortener?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A URL shortener converts long web addresses into short, easy-to-share links that redirect to the original page." }
+        }
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "FattyURL",
+      "url": "https://fattyurl.com",
+      "logo": "https://fattyurl.com/logo.png"
+    }
+    </script>
+{% endblock %}
+
+{% block meta_description %}Shorten any long URL instantly for free. No signup, no login, no limits. FattyURL is the simplest and fastest free link shortener.{% endblock %}
 
 {% block content %}
 <!-- HERO SECTION -->
@@ -152,6 +253,134 @@
                     <h3 class="font-display text-lg font-semibold text-white mb-1">Links Never Die</h3>
                     <p class="text-zinc-400 text-sm font-body leading-relaxed">No expiry. No deactivation. No paywall. Your links work forever. <a href="{% url 'promise_page' %}" class="text-lime-400 hover:text-lime-300 underline underline-offset-2 decoration-lime-400/30 hover:decoration-lime-400">Read our promise</a>.</p>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="relative py-24 overflow-hidden">
+    <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent"></div>
+    
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">
+                Frequently Asked <span class="text-lime-400">Questions</span>
+            </h2>
+            <p class="text-zinc-400 font-body text-lg">Everything you need to know about FattyURL.</p>
+        </div>
+
+        <div class="space-y-4">
+            <!-- FAQ Item 1 -->
+            <div class="group bg-zinc-900/40 border border-zinc-800/80 rounded-2xl overflow-hidden hover:border-zinc-700/50 transition-all duration-300">
+                <details class="peer">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                        <h3 class="font-display text-lg font-semibold text-white group-hover:text-lime-400 transition-colors duration-300">Is FattyURL completely free?</h3>
+                        <span class="relative flex-shrink-0 ml-4 w-6 h-6">
+                            <i class="fa-solid fa-plus absolute inset-0 text-zinc-500 transition-transform duration-300 peer-open:rotate-45 peer-open:opacity-0"></i>
+                            <i class="fa-solid fa-minus absolute inset-0 text-lime-400 opacity-0 transition-transform duration-300 peer-open:opacity-100"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-zinc-400 font-body leading-relaxed">
+                        Yes, FattyURL is 100% free with no hidden charges, no premium tier, and no usage limits.
+                    </div>
+                </details>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="group bg-zinc-900/40 border border-zinc-800/80 rounded-2xl overflow-hidden hover:border-zinc-700/50 transition-all duration-300">
+                <details class="peer">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                        <h3 class="font-display text-lg font-semibold text-white group-hover:text-lime-400 transition-colors duration-300">Do I need to sign up or create an account?</h3>
+                        <span class="relative flex-shrink-0 ml-4 w-6 h-6">
+                            <i class="fa-solid fa-plus absolute inset-0 text-zinc-500 transition-transform duration-300 peer-open:rotate-45 peer-open:opacity-0"></i>
+                            <i class="fa-solid fa-minus absolute inset-0 text-lime-400 opacity-0 transition-transform duration-300 peer-open:opacity-100"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-zinc-400 font-body leading-relaxed">
+                        No. Just paste your long URL and click shorten. No signup, no login, no email required.
+                    </div>
+                </details>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="group bg-zinc-900/40 border border-zinc-800/80 rounded-2xl overflow-hidden hover:border-zinc-700/50 transition-all duration-300">
+                <details class="peer">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                        <h3 class="font-display text-lg font-semibold text-white group-hover:text-lime-400 transition-colors duration-300">Is there a limit on how many URLs I can shorten?</h3>
+                        <span class="relative flex-shrink-0 ml-4 w-6 h-6">
+                            <i class="fa-solid fa-plus absolute inset-0 text-zinc-500 transition-transform duration-300 peer-open:rotate-45 peer-open:opacity-0"></i>
+                            <i class="fa-solid fa-minus absolute inset-0 text-lime-400 opacity-0 transition-transform duration-300 peer-open:opacity-100"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-zinc-400 font-body leading-relaxed">
+                        No. You can shorten as many URLs as you want, as often as you want.
+                    </div>
+                </details>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="group bg-zinc-900/40 border border-zinc-800/80 rounded-2xl overflow-hidden hover:border-zinc-700/50 transition-all duration-300">
+                <details class="peer">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                        <h3 class="font-display text-lg font-semibold text-white group-hover:text-lime-400 transition-colors duration-300">Do shortened links expire?</h3>
+                        <span class="relative flex-shrink-0 ml-4 w-6 h-6">
+                            <i class="fa-solid fa-plus absolute inset-0 text-zinc-500 transition-transform duration-300 peer-open:rotate-45 peer-open:opacity-0"></i>
+                            <i class="fa-solid fa-minus absolute inset-0 text-lime-400 opacity-0 transition-transform duration-300 peer-open:opacity-100"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-zinc-400 font-body leading-relaxed">
+                        No. Your shortened links stay active permanently.
+                    </div>
+                </details>
+            </div>
+
+            <!-- FAQ Item 5 -->
+            <div class="group bg-zinc-900/40 border border-zinc-800/80 rounded-2xl overflow-hidden hover:border-zinc-700/50 transition-all duration-300">
+                <details class="peer">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                        <h3 class="font-display text-lg font-semibold text-white group-hover:text-lime-400 transition-colors duration-300">Is FattyURL safe to use?</h3>
+                        <span class="relative flex-shrink-0 ml-4 w-6 h-6">
+                            <i class="fa-solid fa-plus absolute inset-0 text-zinc-500 transition-transform duration-300 peer-open:rotate-45 peer-open:opacity-0"></i>
+                            <i class="fa-solid fa-minus absolute inset-0 text-lime-400 opacity-0 transition-transform duration-300 peer-open:opacity-100"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-zinc-400 font-body leading-relaxed">
+                        Yes. FattyURL runs over HTTPS and all shortened links are safe to share.
+                    </div>
+                </details>
+            </div>
+
+            <!-- FAQ Item 6 -->
+            <div class="group bg-zinc-900/40 border border-zinc-800/80 rounded-2xl overflow-hidden hover:border-zinc-700/50 transition-all duration-300">
+                <details class="peer">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                        <h3 class="font-display text-lg font-semibold text-white group-hover:text-lime-400 transition-colors duration-300">Why should I use FattyURL instead of other URL shorteners?</h3>
+                        <span class="relative flex-shrink-0 ml-4 w-6 h-6">
+                            <i class="fa-solid fa-plus absolute inset-0 text-zinc-500 transition-transform duration-300 peer-open:rotate-45 peer-open:opacity-0"></i>
+                            <i class="fa-solid fa-minus absolute inset-0 text-lime-400 opacity-0 transition-transform duration-300 peer-open:opacity-100"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-zinc-400 font-body leading-relaxed">
+                        Most URL shorteners require you to create an account, limit free usage, or charge for features. FattyURL is completely free with no signup, no limits, and no paywalls — ever.
+                    </div>
+                </details>
+            </div>
+
+            <!-- FAQ Item 7 -->
+            <div class="group bg-zinc-900/40 border border-zinc-800/80 rounded-2xl overflow-hidden hover:border-zinc-700/50 transition-all duration-300">
+                <details class="peer">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                        <h3 class="font-display text-lg font-semibold text-white group-hover:text-lime-400 transition-colors duration-300">What is a URL shortener?</h3>
+                        <span class="relative flex-shrink-0 ml-4 w-6 h-6">
+                            <i class="fa-solid fa-plus absolute inset-0 text-zinc-500 transition-transform duration-300 peer-open:rotate-45 peer-open:opacity-0"></i>
+                            <i class="fa-solid fa-minus absolute inset-0 text-lime-400 opacity-0 transition-transform duration-300 peer-open:opacity-100"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-zinc-400 font-body leading-relaxed">
+                        A URL shortener converts long web addresses into short, easy-to-share links that redirect to the original page.
+                    </div>
+                </details>
             </div>
         </div>
     </div>

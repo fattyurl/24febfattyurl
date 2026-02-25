@@ -489,6 +489,9 @@
   .ml-2 {
     margin-left: calc(var(--spacing) * 2);
   }
+  .ml-4 {
+    margin-left: calc(var(--spacing) * 4);
+  }
   .ml-10 {
     margin-left: calc(var(--spacing) * 10);
   }
@@ -518,6 +521,9 @@
   }
   .h-2 {
     height: calc(var(--spacing) * 2);
+  }
+  .h-6 {
+    height: calc(var(--spacing) * 6);
   }
   .h-8 {
     height: calc(var(--spacing) * 8);
@@ -578,6 +584,9 @@
   }
   .w-4 {
     width: calc(var(--spacing) * 4);
+  }
+  .w-6 {
+    width: calc(var(--spacing) * 6);
   }
   .w-8 {
     width: calc(var(--spacing) * 8);
@@ -662,6 +671,9 @@
   }
   .flex-1 {
     flex: 1;
+  }
+  .flex-shrink-0 {
+    flex-shrink: 0;
   }
   .shrink-0 {
     flex-shrink: 0;
@@ -1408,6 +1420,9 @@
   .pr-10 {
     padding-right: calc(var(--spacing) * 10);
   }
+  .pb-6 {
+    padding-bottom: calc(var(--spacing) * 6);
+  }
   .pl-0 {
     padding-left: calc(var(--spacing) * 0);
   }
@@ -2025,6 +2040,21 @@
       }
     }
   }
+  .peer-open\:rotate-45 {
+    &:is(:where(.peer):is([open], :popover-open, :open) ~ *) {
+      rotate: 45deg;
+    }
+  }
+  .peer-open\:opacity-0 {
+    &:is(:where(.peer):is([open], :popover-open, :open) ~ *) {
+      opacity: 0%;
+    }
+  }
+  .peer-open\:opacity-100 {
+    &:is(:where(.peer):is([open], :popover-open, :open) ~ *) {
+      opacity: 100%;
+    }
+  }
   .file\:mr-4 {
     &::file-selector-button {
       margin-right: calc(var(--spacing) * 4);
@@ -2170,6 +2200,16 @@
     &:hover {
       @media (hover: hover) {
         border-color: var(--color-zinc-700);
+      }
+    }
+  }
+  .hover\:border-zinc-700\/50 {
+    &:hover {
+      @media (hover: hover) {
+        border-color: color-mix(in srgb, oklch(37% 0.013 285.805) 50%, transparent);
+        @supports (color: color-mix(in lab, red, red)) {
+          border-color: color-mix(in oklab, var(--color-zinc-700) 50%, transparent);
+        }
       }
     }
   }
