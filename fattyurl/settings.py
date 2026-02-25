@@ -14,9 +14,6 @@ env = environ.Env(
     EMAIL_HOST_USER=(str, ''),
     EMAIL_HOST_PASSWORD=(str, ''),
     EMAIL_FROM=(str, 'noreply@localhost'),
-    USE_X_FORWARDED_HOST=(bool, False),
-    SECURE_PROXY_SSL_HEADER_NAME=(str, 'HTTP_X_FORWARDED_PROTO'),
-    SECURE_PROXY_SSL_HEADER_VALUE=(str, 'https'),
 )
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +27,6 @@ if not DEBUG:
     CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[])
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    SECURE_REDIRECT_EXEMPT = []
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_BROWSER_XSS_FILTER = True
     CSRF_COOKIE_HTTPONLY = True
