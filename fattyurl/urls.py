@@ -2,10 +2,20 @@ from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from django.conf import settings
+from django.http import Http404, HttpResponse
+from django.contrib.staticfiles.storage import staticfiles_storage
 from core import views
 from core.sitemaps import StaticViewSitemap
 
 handler404 = 'core.views.custom_404'
+
+def serve_favicon_ico(request):
+    if not staticfiles_storage.exists('favicon.ico'):
+        raise Http404('favicon.ico not found')
+
+    with staticfiles_storage.open('favicon.ico', 'rb') as favicon_file:
+        return HttpResponse(favicon_file.read(), content_type='image/x-icon')
+
 
 urlpatterns = [
     # Admin
@@ -17,6 +27,8 @@ urlpatterns = [
         {'sitemaps': {'static': StaticViewSitemap}},
         name='sitemap',
     ),
+    # Favicon
+    path('favicon.ico', serve_favicon_ico, name='favicon_ico'),
 
     # Auth (django-allauth)
     path('accounts/', include('allauth.urls')),
