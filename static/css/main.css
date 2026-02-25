@@ -393,6 +393,9 @@
   .left-\[15\%\] {
     left: 15%;
   }
+  .z-10 {
+    z-index: 10;
+  }
   .z-50 {
     z-index: 50;
   }
@@ -1411,8 +1414,8 @@
   .pl-4 {
     padding-left: calc(var(--spacing) * 4);
   }
-  .pl-11 {
-    padding-left: calc(var(--spacing) * 11);
+  .pl-12\! {
+    padding-left: calc(var(--spacing) * 12) !important;
   }
   .text-center {
     text-align: center;
