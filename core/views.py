@@ -15,12 +15,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST, require_GET
 
 from .forms import ShortenerForm, LinkEditForm
 from .models import Link, Click
 from .utils import (
-    parse_user_agent, hash_ip, get_client_ip, get_geo_from_request,
+    parse_user_agent, hash_ip, get_client_ip,
     validate_slug,
 )
 
@@ -102,20 +103,55 @@ def redirect_short_url(request, code):
     except Link.DoesNotExist:
         raise Http404
 
-    # Log click in background thread
-    ua_string = request.META.get('HTTP_USER_AGENT', '')[:500]
     referrer = request.META.get('HTTP_REFERER', '')[:2048]
-    ip = get_client_ip(request)
-    geo = get_geo_from_request(request)
+
+    return render(request, 'redirect_loading.html', {
+        'redirect_url': link.original_url,
+        'referrer': referrer,
+        'postcode': code,
+    })
+
+
+@csrf_exempt
+@require_POST
+def push_analytics(request):
+    """Receive client-side analytics data and log click."""
+    try:
+        body = json.loads(request.body)
+    except (json.JSONDecodeError, ValueError):
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+    postcode = body.get('postcode', '').strip()
+    data = body.get('data') or {}
+
+    if not postcode:
+        return JsonResponse({'error': 'postcode is required'}, status=400)
+
+    try:
+        link = Link.objects.get(
+            Q(short_code=postcode) | Q(custom_slug=postcode),
+            is_active=True,
+        )
+    except Link.DoesNotExist:
+        return JsonResponse({'error': 'Link not found'}, status=404)
+
+    # Parse UA from the request itself (the browser making the call)
+    ua_string = request.META.get('HTTP_USER_AGENT', '')[:500]
     ua_data = parse_user_agent(ua_string)
+    ip = get_client_ip(request)
+    referrer = body.get('referrer', '')[:2048]
+
+    # Geo data from ipapi.co response sent by client
+    country = str(data.get('country_name', ''))[:100]
+    city = str(data.get('city', ''))[:100]
 
     def log_click():
         Click.objects.create(
             link=link,
             referrer=referrer,
             user_agent=ua_string,
-            country=geo['country'],
-            city=geo['city'],
+            country=country,
+            city=city,
             device_type=ua_data['device_type'],
             browser=ua_data['browser'],
             os=ua_data['os'],
@@ -126,7 +162,7 @@ def redirect_short_url(request, code):
     t = threading.Thread(target=log_click, daemon=True)
     t.start()
 
-    return redirect(link.original_url)
+    return JsonResponse({'status': 'ok'})
 
 
 # ---------------------

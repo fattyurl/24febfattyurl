@@ -67,6 +67,9 @@ urlpatterns = [
     path('api/health', views.health_check, name='health_check'),
     path('api/v1/', include('api.urls')),
 
+    # Client-side analytics push
+    path('push-analytics/', views.push_analytics, name='push_analytics'),
+
     # MUST BE LAST — catch-all redirect
     path('<str:code>/', views.redirect_short_url, name='redirect_short_url'),
 ]

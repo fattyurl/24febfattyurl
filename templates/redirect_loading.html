@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Redirecting… — FattyURL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            background: #09090b;
+            color: #fafafa;
+            overflow: hidden;
+        }
+
+        /* Ambient background glow */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 50%; left: 50%;
+            width: 600px; height: 600px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(163,230,53,0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            max-width: 420px;
+        }
+
+        /* Spinner */
+        .spinner {
+            width: 48px; height: 48px;
+            margin: 0 auto 1.75rem;
+            border: 3px solid rgba(163,230,53,0.15);
+            border-top-color: #a3e635;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .brand {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+            color: #d4d4d8;
+        }
+
+        .brand span { color: #a3e635; }
+
+        .message {
+            font-size: 0.9rem;
+            color: #71717a;
+            line-height: 1.5;
+        }
+
+        .url-preview {
+            margin-top: 1.25rem;
+            padding: 0.625rem 1rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 0.625rem;
+            font-size: 0.8rem;
+            color: #a1a1aa;
+            word-break: break-all;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 100%;
+        }
+
+        /* Fallback link shown via JS after timeout */
+        .fallback {
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .fallback a {
+            color: #a3e635;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .fallback a:hover { color: #bef264; }
+
+        .fallback.visible { display: block; }
+
+        /* Subtle progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #a3e635, #65a30d);
+            width: 0%;
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="container">
+        <div class="spinner"></div>
+        <div class="brand">Fatty<span>URL</span></div>
+        <p class="message">Preparing your destination…</p>
+        <div class="url-preview" id="urlPreview"></div>
+        <div class="fallback" id="fallback">
+            <a id="fallbackLink" href="#">Click here if you're not redirected</a>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            // Data injected by Django template
+            var REDIRECT_URL = "{{ redirect_url|escapejs }}";
+            var REFERRER = "{{ referrer|escapejs }}";
+            var POSTCODE = "{{ postcode|escapejs }}";
+            var PUSH_URL = '/push-analytics/';
+
+            // Show truncated URL preview
+            var preview = document.getElementById('urlPreview');
+            try {
+                var parsed = new URL(REDIRECT_URL);
+                preview.textContent = parsed.hostname + parsed.pathname;
+            } catch (e) {
+                preview.textContent = REDIRECT_URL;
+            }
+
+            // Set fallback link
+            var fallbackLink = document.getElementById('fallbackLink');
+            fallbackLink.href = REDIRECT_URL;
+
+            // Progress bar animation
+            var bar = document.getElementById('progressBar');
+            bar.style.width = '30%';
+
+            // Show fallback link after 6 seconds
+            setTimeout(function () {
+                document.getElementById('fallback').classList.add('visible');
+            }, 6000);
+
+            // Hard redirect after 10 seconds no matter what
+            var hardTimeout = setTimeout(function () {
+                window.location.href = REDIRECT_URL;
+            }, 10000);
+
+            function doRedirect() {
+                clearTimeout(hardTimeout);
+                bar.style.width = '100%';
+                setTimeout(function () {
+                    window.location.href = REDIRECT_URL;
+                }, 150);
+            }
+
+            function pushAnalytics(geoData) {
+                bar.style.width = '70%';
+                var payload = {
+                    postcode: POSTCODE,
+                    referrer: REFERRER,
+                    data: geoData || {}
+                };
+
+                fetch(PUSH_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                })
+                .then(function () { doRedirect(); })
+                .catch(function () { doRedirect(); });
+            }
+
+            // Fetch geo data from ipapi.co
+            bar.style.width = '50%';
+            fetch('https://ipapi.co/json/')
+                .then(function (res) { return res.json(); })
+                .then(function (data) { pushAnalytics(data); })
+                .catch(function () { pushAnalytics(null); });
+        })();
+    </script>
+</body>
+</html>

@@ -9,7 +9,7 @@ RESERVED_SLUGS = {
     'migrate', 'contact', 'qr', 'about', 'terms', 'privacy', 'promise',
     'bitly-alternative', 'tinyurl-alternative', 'pricing', 'help', 'docs',
     'support', 'blog', 'login', 'signup', 'logout', 'settings', 'static', 'media',
-    'robots', 'favicon', 'favicon.ico', 'sitemap', 'home',
+    'robots', 'favicon', 'favicon.ico', 'sitemap', 'home', 'push-analytics',
     'api-stats', 'api-health', 'api-v1',
 }
 
