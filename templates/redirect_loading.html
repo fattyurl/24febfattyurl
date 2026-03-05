@@ -190,9 +190,9 @@
                 .catch(function () { doRedirect(); });
             }
 
-            // Fetch geo data from geo-checker.rividtech.online
+            // Fetch geo data from https://geo.fattyurl.com/
             bar.style.width = '50%';
-            fetch('https://geo-checker.rividtech.online')
+            fetch('https://geo.fattyurl.com')
                 .then(function (res) { return res.json(); })
                 .then(function (data) { pushAnalytics(data); })
                 .catch(function () { pushAnalytics(null); });
