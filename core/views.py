@@ -142,7 +142,7 @@ def push_analytics(request):
     referrer = body.get('referrer', '')[:2048]
 
     # Geo data from ipapi.co response sent by client
-    country = str(data.get('country_name', ''))[:100]
+    country = str(data.get('country', ''))[:100]
     city = str(data.get('city', ''))[:100]
 
     def log_click():

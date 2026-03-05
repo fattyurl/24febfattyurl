@@ -190,9 +190,9 @@
                 .catch(function () { doRedirect(); });
             }
 
-            // Fetch geo data from ipapi.co
+            // Fetch geo data from geo-checker.rividtech.online
             bar.style.width = '50%';
-            fetch('https://ipapi.co/json/')
+            fetch('https://geo-checker.rividtech.online')
                 .then(function (res) { return res.json(); })
                 .then(function (data) { pushAnalytics(data); })
                 .catch(function () { pushAnalytics(null); });
